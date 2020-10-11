@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <title>Tetris</title>
+
+  <!-- styling and icons -->
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/bf5b084248.js" crossorigin="anonymous"></script>
+
+  <!-- scripts -->
+  <script src="scripts/pieces.js"></script>
+  <script src="scripts/controller.js"></script>
+
+</head>
+<body>
+  
+  <div class="hold">
+    <h2>HOLD</h2>
+    <canvas class="hold-display"></canvas>
+  </div>
+
+  <div class="next">
+    <i onclick="mediaToggle()" class="fas fa-pause" id="media"></i>
+    <h2>NEXT</h2>
+    <canvas class="next-display"></canvas>
+  </div>
+
+  <div class="ls-keys">
+    <div class="key" id="x-key">X</div>
+    <div class="key" id="c-key">C</div>
+    <div class="key" id="spacebar"></div>
+  </div>
+
+  <div class="rs-keys">
+    <br>
+    <div class="key" id="arrow-up"><i class="fas fa-arrow-up"></i></div>
+    <br>
+    <div class="key" id="arrow-left"><i class="fas fa-arrow-left"></i></div>
+    <div class="key" id="arrow-down"><i class="fas fa-arrow-down"></i></div>
+    <div class="key" id="arrow-right"><i class="fas fa-arrow-right"></i></div>
+  </div>
+
+  <div class="main">
+    <canvas class="game"></canvas>
+    <div class="pause-screen hidden">
+      <h1>PAUSED</h1>
+    </div>
+  </div>
+  
+  <!-- scripts loaded after -->
+  <script src="scripts/game.js"></script>
+  <script src="scripts/display.js"></script>
+
+</body>
+</html>
