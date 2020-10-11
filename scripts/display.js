@@ -29,7 +29,7 @@ function setup() {
   blocks = [];
   current = randomPiece();
   next = randomPiece();
-  holding = randomPiece();
+  // holding = randomPiece();
 
 }
 
@@ -44,7 +44,7 @@ function draw() {
   // show current block and side displays
   current.show();
   next.nextShow();
-  holding.holdShow();
+  if (holding != null) holding.holdShow();
 
   // show every block and detect for when block lands on the top of the screen
   for (let block of blocks) {

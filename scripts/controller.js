@@ -1,5 +1,6 @@
-// to prevent previous arrow function affecting new current
+// player controller variables
 var ready = true;
+var holdCount = 0;
 
 // listen to when keys are pressed
 window.addEventListener('keydown', (event) => {
@@ -55,6 +56,7 @@ window.addEventListener('keyup', (event) => {
       toggleKey('x-key', false);
       break;
     case "c":
+      hold();
       toggleKey('c-key', false);
       break;
   }
@@ -114,5 +116,48 @@ function moveCurrent(x, y) {
   for (let piece of current.pieces) {
     piece.move(x, y);
   }
+
+}
+
+// hold function
+function hold() {
+
+  if (holdCount > 0) return;
+
+  // create a copy
+  let copy;
+  switch (current.pieces[0].color) {
+    case 'red': // block S
+      copy = randomPiece(0);
+      break;
+    case 'blue': // block Z
+      copy = randomPiece(1);
+      break;
+    case 'purple': // block L
+      copy = randomPiece(2);
+      break;
+    case 'green': // block J
+      copy = randomPiece(3);
+      break;
+    case 'yellow': // block T
+     copy = randomPiece(4);
+      break;
+    case 'orange': // block O
+      copy = randomPiece(5);
+      break;
+    case 'cyan': // block I
+      copy = randomPiece(6);
+      break;
+  }
+
+  if (holding) {
+    current = holding;
+  } else {
+    current = next;
+    next = randomPiece();
+  }
+
+  holding = copy;
+  holdCount++;
 
 }

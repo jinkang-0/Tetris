@@ -10,7 +10,7 @@ var tick = 0;
 var paused = false;
 
 // returns a random tetris piece
-function randomPiece() {
+function randomPiece(num) {
   
   // chooses a random number for picking pieces
   let rand = Math.floor( Math.random() * 7 );
@@ -19,7 +19,7 @@ function randomPiece() {
   let rows = Math.floor(canvas.height / scale);
   let x = round(scale*4, 1000);
   let y = round(canvas.height - (rows*scale) + 2, 1000);
-  // rand = 1;
+  if (num != null) rand = num;
 
   // depending on the random number, spawn a new piece
   switch (rand) {
@@ -73,8 +73,9 @@ function newCurrent() {
   current = next;
   next = randomPiece();
 
-  // set ready to false to prevent down arrow activity until down arrow is not held
+  // reset player variables
   ready = false;
+  holdCount = 0;
 
 }
 

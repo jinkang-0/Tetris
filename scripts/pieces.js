@@ -83,7 +83,6 @@ class Piece {
         for (let block of blocks) {
           if (px >= block.x - scale/2 && px <= block.x + scale/2
             && py >= block.y - scale/2 && py <= block.y + scale/2) {
-            console.log("inverse collide");
             return;
           }
         }
@@ -102,7 +101,6 @@ class Piece {
         for (let block of blocks) {
           if (px >= block.x - scale/2 && px <= block.x + scale/2
             && py >= block.y - scale/2 && py <= block.y + scale/2) {
-            console.log("normal collide");
             return;
           }
         }
@@ -138,10 +136,10 @@ class PieceI extends Piece {
     super();
 
     // pieces
-    this.pieces.push( new Square(x, y-scale, 'cyan') );
-    this.pieces.push( new Square(x, y-scale*2, 'cyan') );
-    this.pieces.push( new Square(x, y-scale*3, 'cyan') );
     this.pieces.push( new Square(x, y, 'cyan') );
+    this.pieces.push( new Square(x-scale, y, 'cyan') );
+    this.pieces.push( new Square(x+scale, y, 'cyan') );
+    this.pieces.push( new Square(x+scale*2, y, 'cyan') );
 
     // rounding for accuracy (yes, js is weird)
     for (let piece of this.pieces) {
