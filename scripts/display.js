@@ -27,6 +27,7 @@ function setup() {
 
   // prep placeholders
   blocks = [];
+  clearing = [];
   current = randomPiece();
   next = randomPiece();
   // holding = randomPiece();
@@ -109,10 +110,10 @@ function sideDisplay(display, color) {
   // draw a piece depending on the color
   switch(color) {
     case 'cyan': // block I
-      drawSquare(cx-hScale/2, cy-hScale*2);
-      drawSquare(cx-hScale/2, cy-hScale);
-      drawSquare(cx-hScale/2, cy);
-      drawSquare(cx-hScale/2, cy+hScale);
+      drawSquare(cx-hScale*2, cy-hScale/2);
+      drawSquare(cx-hScale, cy-hScale/2);
+      drawSquare(cx, cy-hScale/2);
+      drawSquare(cx+hScale, cy-hScale/2);
       break;
     case 'orange': // block O
       drawSquare(cx-hScale, cy-hScale);

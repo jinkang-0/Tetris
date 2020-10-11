@@ -8,6 +8,7 @@ var blocks = [];
 var descentDelay = 60;
 var tick = 0;
 var paused = false;
+var clearing = [];
 
 // returns a random tetris piece
 function randomPiece(num) {
@@ -62,19 +63,70 @@ function mediaToggle() {
 }
 
 // spawns new piece as current
-function newCurrent() {
+async function newCurrent() {
 
   // transfer current to list of blocks 
   for (let piece of current.pieces) {
     blocks.push(piece);
   }
-  
+
+  ready = false;
+
+  // check for line completion
+  let lines = [];
+  for (let piece of current.pieces) {
+    let count = 0;
+    for (let block of blocks) {
+      if (block.y == piece.y) {
+        count++;
+      }
+    }
+    if (count >= 10 && !lines.includes(piece.y)) {
+      lines.push(piece.y);
+    }
+  }
+
+  if (lines.length > 0) {
+
+    // remove lines
+    for (let y of lines) {
+      for (let block of blocks) {
+        if (block.y >= y - scale/2 && block.y <= y + scale/2) {
+          clearing.push(block);
+        }
+      }
+    }
+
+    // halt
+    paused = true;
+    await new Promise( (resolve, reject) => {setTimeout( () => {
+      
+      // after a set time, clear lines and move blocks above down
+      for (let clear of clearing) {
+        removeFromArray(blocks, clear);
+        for (let block of blocks) {
+          if (block.x == clear.x && block.y < clear.y) {
+            block.move(0, scale);
+          }
+        }
+      }
+
+      clearing = [];
+
+      // resume
+      ready = true;
+      paused = false;
+      draw();
+      resolve();
+    }, 250)});
+
+  }
+
   // transfer next to current, and make new block for next
   current = next;
   next = randomPiece();
 
   // reset player variables
-  ready = false;
   holdCount = 0;
 
 }
@@ -82,4 +134,12 @@ function newCurrent() {
 // tool to round numbers
 function round(num, nth) {
   return Math.round(num * nth) / nth;
+}
+
+// tool to remove an element
+function removeFromArray(arr, elem) {
+  const index = arr.indexOf(elem);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
 }

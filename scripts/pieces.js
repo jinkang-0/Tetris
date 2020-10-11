@@ -367,10 +367,17 @@ class Square {
   }
 
   show() {
-    c.fillStyle = "black";
-    c.fillRect(this.x-1, this.y-1, scale+2, scale+2);
-    c.fillStyle = this.color;
-    c.fillRect(this.x+2, this.y+2, scale-4, scale-4);
+    
+    if (clearing.includes(this)) {
+      c.fillStyle = "darkgray";
+      c.fillRect(this.x-1, this.y-1, scale+2, scale+2);
+    } else { 
+      c.fillStyle = "black";
+      c.fillRect(this.x-1, this.y-1, scale+2, scale+2);
+      c.fillStyle = this.color;
+      c.fillRect(this.x+2, this.y+2, scale-4, scale-4);
+    }
+
   }
 
   move(x, y) {
