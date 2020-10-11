@@ -8,6 +8,7 @@ Also a recreation of the classic Tetris for me to play during freetime at school
 - Press Z to turn counter-clockwise
 - Press C to hold a piece temporarily
 - Press Space to hard drop a piece
+- Press Esc to pause/unpause
 
 ### Github page
 https://jinkang-0.github.io/Tetris
