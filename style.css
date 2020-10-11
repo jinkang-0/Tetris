@@ -55,7 +55,7 @@ body {
 .text-display {
   position: absolute;
   font-weight: normal;
-  top: 0;
+  top: 5px;
   letter-spacing: 0.5px;
 }
 
