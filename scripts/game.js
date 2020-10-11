@@ -9,6 +9,8 @@ var descentDelay = 60;
 var tick = 0;
 var paused = false;
 var clearing = [];
+var score = 0;
+var topScore = 0;
 
 // returns a random tetris piece
 function randomPiece(num) {
@@ -20,6 +22,7 @@ function randomPiece(num) {
   let rows = Math.floor(canvas.height / scale);
   let x = round(scale*4, 1000);
   let y = round(canvas.height - (rows*scale) + 2, 1000);
+  // y -= scale;
   if (num != null) rand = num;
 
   // depending on the random number, spawn a new piece
@@ -95,6 +98,8 @@ async function newCurrent() {
           clearing.push(block);
         }
       }
+      score += 100;
+      topScore = Math.max(score, topScore);
     }
 
     // halt

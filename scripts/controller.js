@@ -18,10 +18,11 @@ window.addEventListener('keydown', (event) => {
       toggleKey('arrow-right', true);
       break;
     case "ArrowDown":
-      if (!paused && ready) moveCurrent(0, scale);
+      if (!paused && ready) moveCurrent(0, scale, 1);
       toggleKey('arrow-down', true);
       break;
     case " ":
+      if (!paused && ready) hardDrop();
       toggleKey('spacebar', true);
       break;
     case "z":
@@ -29,7 +30,7 @@ window.addEventListener('keydown', (event) => {
       toggleKey('z-key', true);
       break;
     case "c":
-      hold();
+      if (!paused) hold();
       toggleKey('c-key', true);
       break;
   }
@@ -52,6 +53,7 @@ window.addEventListener('keyup', (event) => {
       toggleKey('arrow-down', false);
       break;
     case " ":
+      ready = true;
       toggleKey('spacebar', false);
       break;
     case "z":
@@ -74,7 +76,7 @@ function toggleKey(id, setActive) {
 }
 
 // moves the current, controllable piece
-function moveCurrent(x, y) {
+function moveCurrent(x, y, scoreFactor) {
 
   // find leftmost, rightmost, and deepest piece for checking constraints
   let min = Infinity;
@@ -87,7 +89,7 @@ function moveCurrent(x, y) {
   }
   
   // check constraints
-  if (min + x < 0 || max + x >= canvas.width) return;
+  if (min + x < 0 || max + x >= canvas.width) return true;
 
   // check collision before moving
   for (let piece of current.pieces) {
@@ -97,20 +99,30 @@ function moveCurrent(x, y) {
 
     // check collision with other blocks
     for (let block of blocks) {
-      if (piece.x == block.x && piece.y < block.y && py >= block.y) {
+      if (piece.x == block.x && py <= block.y + scale/2 && py >= block.y - scale/2) {
         newCurrent();
-        return;
-      } else if (piece.y == block.y && (px >= block.x - scale/2 && px <= block.x + scale/2)) {
-        return;
-      }
+        return true;
+      } else if (piece.y == block.y && px >= block.x - scale/2 && px <= block.x + scale/2) {
+        return true;
+      } //else if (piece.y >= block.y - scale/2 && piece.y <= block.y + scale/2
+      //   && piece.x >= block.x - scale/2 && piece.x <= block.x + scale/2) {
+      //   newCurrent();
+      //   return true;
+      // }
     }
 
     // check collision with ground floor
     if (py >= canvas.height) {
       newCurrent();
-      return;
+      return true;
     }
 
+  }
+
+  // add score
+  if (y > 0) {
+    score += 10 * scoreFactor;
+    topScore = Math.max(score, topScore);
   }
 
   // move current
@@ -160,5 +172,19 @@ function hold() {
 
   holding = copy;
   holdCount++;
+
+}
+
+// moves current block to bottom
+function hardDrop() {
+
+  // drop
+  let slammed = false;
+  while (!slammed) {
+    slammed = moveCurrent(0, scale, 2);
+  }
+
+  // update variables
+  ready = false;
 
 }

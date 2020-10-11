@@ -30,7 +30,12 @@ function setup() {
   clearing = [];
   current = randomPiece();
   next = randomPiece();
-  // holding = randomPiece();
+  holding = null;
+
+  // reset variables
+  ready = true;
+  holdCount = 0;
+  score = 0;
 
 }
 
@@ -50,7 +55,7 @@ function draw() {
   // show every block and detect for when block lands on the top of the screen
   for (let block of blocks) {
     block.show();
-    if (block.y <= 0) {
+    if (block.y <= scale) {
       setup();
       mediaToggle();
       return;
@@ -60,9 +65,13 @@ function draw() {
   // constant tick timer to push current block down
   tick++;
   if (tick >= descentDelay) {
-    moveCurrent(0, scale);
+    moveCurrent(0, scale, 0);
     tick = 0;
   }
+
+  // update score display
+  document.getElementById('score').innerHTML = `Score: ${score}`;
+  document.getElementById('top-score').innerHTML = `Top Score: ${topScore}`;
 
   // loop if game is not paused
   if (!paused) requestAnimationFrame(draw);

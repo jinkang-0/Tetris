@@ -30,13 +30,9 @@ body {
   color: #F2E9E4;
 }
 
-/* hold section */
+/* hold & next displays */
 .hold { grid-area: tl; }
-
-.next {
-  grid-area: tr;
-  position: relative;
-}
+.next { grid-area: tr; }
 
 .next, .hold {
   display: flex;
@@ -46,12 +42,29 @@ body {
 
   letter-spacing: 5px;
   font-weight: bold;
+  position: relative;
 }
 
 .hold canvas, .next canvas {
   background-color: var(--box);
   border: 5px solid var(--keys);
   border-radius: 6px;
+}
+
+/* scores */
+.text-display {
+  position: absolute;
+  font-weight: normal;
+  top: 0;
+  letter-spacing: 0.5px;
+}
+
+#score {
+  right: 10px;
+}
+
+#top-score {
+  left: 5px;
 }
 
 /* left side keys */

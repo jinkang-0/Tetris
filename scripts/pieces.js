@@ -136,10 +136,10 @@ class PieceI extends Piece {
     super();
 
     // pieces
-    this.pieces.push( new Square(x, y, 'cyan') );
-    this.pieces.push( new Square(x-scale, y, 'cyan') );
-    this.pieces.push( new Square(x+scale, y, 'cyan') );
-    this.pieces.push( new Square(x+scale*2, y, 'cyan') );
+    this.pieces.push( new Square(x, y-scale, 'cyan') );
+    this.pieces.push( new Square(x-scale, y-scale, 'cyan') );
+    this.pieces.push( new Square(x+scale, y-scale, 'cyan') );
+    this.pieces.push( new Square(x+scale*2, y-scale, 'cyan') );
 
     // rounding for accuracy (yes, js is weird)
     for (let piece of this.pieces) {
