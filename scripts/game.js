@@ -136,7 +136,6 @@ function newCurrent() {
       // resume
       paused = false;
       draw();
-      resolve();
     }, 250);
 
   }

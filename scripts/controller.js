@@ -62,6 +62,9 @@ window.addEventListener('keyup', (event) => {
     case "c":
       toggleKey('c-key', false);
       break;
+    case "Escape":
+      mediaToggle();
+      break;
   }
 });
 
