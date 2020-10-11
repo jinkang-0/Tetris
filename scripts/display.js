@@ -36,6 +36,8 @@ function setup() {
   ready = true;
   holdCount = 0;
   score = 0;
+  descentDelay = 60;
+  linesCleared = 0;
 
 }
 

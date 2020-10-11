@@ -120,7 +120,7 @@ function moveCurrent(x, y, scoreFactor) {
   }
 
   // add score
-  if (y > 0) {
+  if (y > 0 && scoreFactor != null) {
     score += 10 * scoreFactor;
     topScore = Math.max(score, topScore);
   }

@@ -7,6 +7,7 @@ var blocks = [];
 // background management variables
 var descentDelay = 60;
 var tick = 0;
+var linesCleared = 0;
 var paused = false;
 var clearing = [];
 var score = 0;
@@ -66,7 +67,7 @@ function mediaToggle() {
 }
 
 // spawns new piece as current
-async function newCurrent() {
+function newCurrent() {
 
   // transfer current to list of blocks 
   for (let piece of current.pieces) {
@@ -99,12 +100,26 @@ async function newCurrent() {
         }
       }
       score += 100;
+      linesCleared++;
       topScore = Math.max(score, topScore);
+    }
+
+    // change descent delay depending on lines cleared
+    if (linesCleared > 100) {
+      descentDelay = 10;
+    } else if (linesCleared > 50) {
+      descentDelay = 20;
+    } else if (linesCleared > 30) {
+      descentDelay = 30;
+    } else if (linesCleared > 20) {
+      descentDelay = 40;
+    } else if (linesCleared > 10) {
+      descentDelay = 50;
     }
 
     // halt
     paused = true;
-    await new Promise( (resolve, reject) => {setTimeout( () => {
+    setTimeout( () => {
       
       // after a set time, clear lines and move blocks above down
       for (let clear of clearing) {
@@ -119,11 +134,10 @@ async function newCurrent() {
       clearing = [];
 
       // resume
-      ready = true;
       paused = false;
       draw();
       resolve();
-    }, 250)});
+    }, 250);
 
   }
 
@@ -143,8 +157,9 @@ function round(num, nth) {
 
 // tool to remove an element
 function removeFromArray(arr, elem) {
-  const index = arr.indexOf(elem);
-  if (index > -1) {
-    arr.splice(index, 1);
+  for (let i = arr.length; i >= 0; i--) {
+    if (arr[i] === elem) {
+      arr.splice(i, 1);
+    }
   }
 }
