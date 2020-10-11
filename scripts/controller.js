@@ -10,7 +10,7 @@ window.addEventListener('keydown', (event) => {
       toggleKey('arrow-left', true);
       break;
     case "ArrowUp":
-      if (!paused) current.turn();
+      if (!paused) current.turn(false);
       toggleKey('arrow-up', true);
       break;
     case "ArrowRight":
@@ -24,10 +24,12 @@ window.addEventListener('keydown', (event) => {
     case " ":
       toggleKey('spacebar', true);
       break;
-    case "x":
-      toggleKey('x-key', true);
+    case "z":
+      if (!paused) current.turn(true);
+      toggleKey('z-key', true);
       break;
     case "c":
+      hold();
       toggleKey('c-key', true);
       break;
   }
@@ -52,11 +54,10 @@ window.addEventListener('keyup', (event) => {
     case " ":
       toggleKey('spacebar', false);
       break;
-    case "x":
-      toggleKey('x-key', false);
+    case "z":
+      toggleKey('z-key', false);
       break;
     case "c":
-      hold();
       toggleKey('c-key', false);
       break;
   }

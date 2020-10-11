@@ -149,7 +149,7 @@ class PieceI extends Piece {
 
   }
 
-  turn() {
+  turn(inverse) {
     this.rotate();
   }
 
@@ -174,7 +174,7 @@ class PieceO extends Piece {
 
   }
 
-  turn() {
+  turn(inverse) {
     return;
   }
 
@@ -199,8 +199,8 @@ class PieceT extends Piece {
 
   }
 
-  turn() {
-    this.rotate();
+  turn(inverse) {
+    this.rotate(inverse);
   }
 
 }
@@ -225,7 +225,7 @@ class PieceZ extends Piece {
 
   }
 
-  turn() {
+  turn(inverse) {
     if (this.rotation == 0) {
       
       new Promise( (resolve, reject) => {
@@ -275,7 +275,7 @@ class PieceS extends Piece {
 
   }
 
-  turn() {
+  turn(inverse) {
     if (this.rotation == 0) {
       
       new Promise( (resolve, reject) => {
@@ -324,8 +324,8 @@ class PieceJ extends Piece {
 
   }
 
-  turn() {
-    this.rotate();
+  turn(inverse) {
+    this.rotate(inverse);
   }
 
 }
@@ -349,8 +349,8 @@ class PieceL extends Piece {
 
   }
 
-  turn() {
-    this.rotate();
+  turn(inverse) {
+    this.rotate(inverse);
   }
 
 }
